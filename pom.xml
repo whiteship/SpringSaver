@@ -1,0 +1,205 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>smartlogitech.com</groupId>
+    <artifactId>backupSD</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+
+    <properties>
+        <java.version>1.6</java.version>
+        <spring.version>3.0.0.RELEASE</spring.version>
+        <aspectj.version>1.6.3.RELEASE</aspectj.version>
+        <asm.version>2.2.3</asm.version>
+        <downSource>true</downSource>
+        <downJavadoc>true</downJavadoc>
+    </properties>
+
+    <dependencies>
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>org.springframework.core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>org.springframework.test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>org.springframework.context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>org.springframework.context.support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>com.springsource.slf4j.log4j</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <!-- Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>com.springsource.javax.mail</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>com.springsource.javax.activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>com.springsource.org.hamcrest</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.0-rc2</version>
+        </dependency>
+        <!-- Google Talk -->
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smack</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.igniterealtime.smack</groupId>
+            <artifactId>smackx</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!-- scheduling -->
+        <dependency>
+            <groupId>edu.emory.mathcs.backport</groupId>
+            <artifactId>com.springsource.edu.emory.mathcs.backport</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!-- svnkit -->
+        <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        <!-- apache net -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>com.springsource.org.apache.commons.net</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>SpringSaver</finalName>
+        <sourceDirectory>
+            ${project.basedir}/src
+        </sourceDirectory>
+        <testSourceDirectory>
+            ${project.basedir}/test
+        </testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/test</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>${downSource}</downloadSources>
+                    <downloadJavadocs>${downJavadoc}</downloadJavadocs>
+                    <wtpversion>1.5</wtpversion>
+                    <wtpContextName>${wtpContextName}</wtpContextName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- clover2:instrument clover2:aggregate clover2:clover -->
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-clover2-plugin</artifactId>
+                <version>2.5.0</version>
+                <configuration>
+                    <generateXml>true</generateXml>
+                    <generateHtml>true</generateHtml>
+                    <licenseLocation>doc/clover/clover.license</licenseLocation>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>opensprout nexus</id>
+            <name>OpenSprout Nexus public</name>
+            <url>http://dev.springsprout.org/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>opensprout snapshots</id>
+            <name>OpenSprout Nexus public snapshots</name>
+            <url>http://dev.springsprout.org/nexus/content/groups/public-snapshots/</url>
+        </repository>
+        <repository>
+            <id>tmatesoft</id>
+            <name>tmatesoft</name>
+            <url>http://maven.svnkit.com/maven2/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>codehaus snapshot repository</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
